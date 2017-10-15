@@ -7,7 +7,7 @@
     <include layout="@layout/toolbar_layout"/>
 
     <FrameLayout
-        android:id="@+id/mainFrame"
+        android:id="@+id/mainWrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

@@ -34,7 +34,7 @@ public class MyFragmentManager {
         }
     }
 
-    private boolean removeCurrentFragment(BaseActivity activity) {
+    public boolean removeCurrentFragment(BaseActivity activity) {
          return removeFragment(activity, currentFragment);
     }
 
