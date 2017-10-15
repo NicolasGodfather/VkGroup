@@ -1,0 +1,26 @@
+package com.adnroid.vkgroup.di.module;
+
+import android.app.Application;
+import android.content.Context;
+
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+
+// for present context
+@Module // dependency provider class
+public class ApplicationModule {
+
+    private Application application;
+
+    public ApplicationModule(Application application) {
+        this.application = application;
+    }
+
+    @Singleton
+    @Provides // present concrete object in concrete place
+    public Context provideContext() {
+        return application;
+    }
+}

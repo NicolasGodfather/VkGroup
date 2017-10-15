@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.adnroid.vkgroup.App;
 import com.adnroid.vkgroup.Const;
 import com.adnroid.vkgroup.CurrentUser;
 import com.adnroid.vkgroup.R;
@@ -24,6 +25,8 @@ public class MainActivity extends BaseActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        App.getApplicationComponent().inject(this);
 
         presenter.checkAuth();
     }

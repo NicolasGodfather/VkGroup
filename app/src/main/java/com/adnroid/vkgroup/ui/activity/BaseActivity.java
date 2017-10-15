@@ -5,18 +5,24 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
+import com.adnroid.vkgroup.App;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.common.manager.MyFragmentManager;
 import com.adnroid.vkgroup.ui.fragment.BaseFragment;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 
+import javax.inject.Inject;
+
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
+    @Inject
     MyFragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        App.getApplicationComponent().inject(this);
 
         setContentView(R.layout.activity_base);
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolBar);
