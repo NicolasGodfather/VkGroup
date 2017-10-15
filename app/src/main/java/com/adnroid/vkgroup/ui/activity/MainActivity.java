@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.adnroid.vkgroup.Const;
 import com.adnroid.vkgroup.CurrentUser;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.mvp.presenter.MainPresenter;
 import com.adnroid.vkgroup.mvp.view.MainView;
+import com.adnroid.vkgroup.ui.fragment.NewsFeedFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
@@ -24,7 +26,6 @@ public class MainActivity extends BaseActivity implements MainView {
         super.onCreate(savedInstanceState);
 
         presenter.checkAuth();
-
     }
 
     @Override
@@ -39,7 +40,6 @@ public class MainActivity extends BaseActivity implements MainView {
             public void onResult(VKAccessToken res) {
                 // Пользователь успешно авторизовался
                 presenter.checkAuth();
- 
             }
 
             @Override
@@ -53,12 +53,13 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     public void startSignIn() {
-        VKSdk.login(this);
-
+        VKSdk.login(this, Const.DEFAULT_LOGIN_SCOPE);
     }
 
     @Override
     public void signedId() {
         Toast.makeText(this, "Current user id: " + CurrentUser.getId(), Toast.LENGTH_SHORT).show();
+
+        setContent(new NewsFeedFragment());
     }
 }

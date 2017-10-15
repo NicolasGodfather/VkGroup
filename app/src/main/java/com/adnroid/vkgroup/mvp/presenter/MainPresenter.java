@@ -5,13 +5,13 @@ import com.adnroid.vkgroup.mvp.view.MainView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-@InjectViewState // for
+@InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
 
     public void checkAuth() {
         if (!CurrentUser.isAuthorized()) {
             getViewState().startSignIn();
-        } else  {
+        } else {
             getViewState().signedId();
         }
     }
