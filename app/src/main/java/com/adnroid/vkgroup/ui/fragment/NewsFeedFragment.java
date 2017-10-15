@@ -10,11 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.adnroid.vkgroup.App;
-import com.adnroid.vkgroup.CurrentUser;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.rest.api.WallApi;
-import com.adnroid.vkgroup.rest.model.response.BaseItemResponse;
-import com.adnroid.vkgroup.rest.model.response.Full;
+import com.adnroid.vkgroup.rest.model.request.WallGetRequestModel;
+import com.adnroid.vkgroup.rest.model.response.WallGetResponse;
 
 import javax.inject.Inject;
 
@@ -43,15 +42,15 @@ public class NewsFeedFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        wallApi.get("-86529522", CurrentUser.getAccessToken(), 1,"5.68")
-                .enqueue(new Callback<Full<BaseItemResponse>>() {
+        wallApi.get(new WallGetRequestModel(-86529522).toMap())
+                .enqueue(new Callback<WallGetResponse>() {
                     @Override
-                    public void onResponse(Call<Full<BaseItemResponse>> call, Response<Full<BaseItemResponse>> response) {
-                        Toast.makeText(getActivity(), "Count: " + response.body().response.getCount(),  Toast.LENGTH_SHORT).show();
+                    public void onResponse(Call<WallGetResponse> call, Response<WallGetResponse> response) {
+                        Toast.makeText(getActivity(), "Like: " + response.body().response.getItems().get(0).getLikes(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onFailure(Call<Full<BaseItemResponse>> call, Throwable t) {
+                    public void onFailure(Call<WallGetResponse> call, Throwable t) {
                         t.getMessage();
                     }
                 });

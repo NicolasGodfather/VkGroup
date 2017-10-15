@@ -22,6 +22,6 @@ public class CurrentUser {
     public static boolean isAuthorized() {
         return VKSdk.isLoggedIn()
                 && VKAccessToken.currentToken() != null
-                && VKAccessToken.currentToken().isExpired();
+                && !VKAccessToken.currentToken().isExpired();
     }
 }
