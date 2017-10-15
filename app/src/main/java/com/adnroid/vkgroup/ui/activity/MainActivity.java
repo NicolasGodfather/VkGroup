@@ -4,18 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.adnroid.vkgroup.CurentUser;
+import com.adnroid.vkgroup.CurrentUser;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.mvp.presenter.MainPresenter;
 import com.adnroid.vkgroup.mvp.view.MainView;
-import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
-public class MainActivity extends MvpAppCompatActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView {
 
     @InjectPresenter // for manage life cycle of presenter
     MainPresenter presenter;
@@ -23,10 +22,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         presenter.checkAuth();
 
+    }
+
+    @Override
+    protected int getMainContentLayout() {
+        return R.layout.activity_main;
     }
 
     @Override
@@ -56,6 +59,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     public void signedId() {
-        Toast.makeText(this, "Current user id: " + CurentUser.getId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Current user id: " + CurrentUser.getId(), Toast.LENGTH_SHORT).show();
     }
 }

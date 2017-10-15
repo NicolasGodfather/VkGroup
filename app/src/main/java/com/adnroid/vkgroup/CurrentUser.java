@@ -3,7 +3,7 @@ package com.adnroid.vkgroup;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKSdk;
 
-public class CurentUser {
+public class CurrentUser {
 
     public static String getAccessToken() {
         if (VKAccessToken.currentToken() == null) {
