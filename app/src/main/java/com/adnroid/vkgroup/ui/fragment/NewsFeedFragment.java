@@ -2,23 +2,60 @@ package com.adnroid.vkgroup.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.CurrentUser;
 import com.adnroid.vkgroup.R;
+import com.adnroid.vkgroup.rest.api.WallApi;
+import com.adnroid.vkgroup.rest.model.response.BaseItemResponse;
+import com.adnroid.vkgroup.rest.model.response.Full;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NewsFeedFragment extends BaseFragment {
 
+    @Inject
+    WallApi wallApi;
 
     public NewsFeedFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        App.getApplicationComponent().inject(this);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        wallApi.get("-86529522", CurrentUser.getAccessToken(), 1,"5.68")
+                .enqueue(new Callback<Full<BaseItemResponse>>() {
+                    @Override
+                    public void onResponse(Call<Full<BaseItemResponse>> call, Response<Full<BaseItemResponse>> response) {
+                        Toast.makeText(getActivity(), "Count: " + response.body().response.getCount(),  Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Full<BaseItemResponse>> call, Throwable t) {
+                        t.getMessage();
+                    }
+                });
+    }
 
     @Override
     protected int getMainContentLayout() {

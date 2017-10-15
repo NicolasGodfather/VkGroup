@@ -1,6 +1,7 @@
 package com.adnroid.vkgroup.di.module;
 
 import com.adnroid.vkgroup.rest.RestClient;
+import com.adnroid.vkgroup.rest.api.WallApi;
 
 import javax.inject.Singleton;
 
@@ -20,5 +21,11 @@ public class RestModule {
     @Provides
     public RestClient provideRestClient() {
         return restClient;
+    }
+
+    @Singleton
+    @Provides
+    public WallApi provideWallApi() {
+        return restClient.createService(WallApi.class);
     }
 }
