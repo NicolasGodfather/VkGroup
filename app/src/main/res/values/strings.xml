@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VKGroup</string>
+    <string name="vk_token_invalid">VKAccessToken is invalid</string>
+    <integer name="com_vk_sdk_AppId">6219983</integer>
+</resources>
