@@ -43,7 +43,7 @@ public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseViewMod
         addItems(items);
     }
 
-    public void addItems(List<BaseViewModel> newItems) {
+    public void addItems(List<? extends BaseViewModel> newItems) { // тут можно передать классы-наследники BaseViewModel
         for (BaseViewModel newItem : newItems) {
             registerTypeInstance(newItem);
         }
