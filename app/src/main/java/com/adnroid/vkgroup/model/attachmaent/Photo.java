@@ -1,23 +1,23 @@
-
-package com.adnroid.vkgroup.model;
+package com.adnroid.vkgroup.model.attachmaent;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.vk.sdk.api.model.VKAttachments;
 
-public class Photo {
+public class Photo implements Attachment {
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private Integer id;
     @SerializedName("album_id")
     @Expose
-    private int albumId;
+    private Integer albumId;
     @SerializedName("owner_id")
     @Expose
-    private int ownerId;
+    private Integer ownerId;
     @SerializedName("user_id")
     @Expose
-    private int userId;
+    private Integer userId;
     @SerializedName("photo_75")
     @Expose
     private String photo75;
@@ -35,16 +35,16 @@ public class Photo {
     private String photo1280;
     @SerializedName("width")
     @Expose
-    private int width;
+    private Integer width;
     @SerializedName("height")
     @Expose
-    private int height;
+    private Integer height;
     @SerializedName("text")
     @Expose
     private String text;
     @SerializedName("date")
     @Expose
-    private int date;
+    private Integer date;
     @SerializedName("access_key")
     @Expose
     private String accessKey;
@@ -53,31 +53,31 @@ public class Photo {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getAlbumId() {
+    public Integer getAlbumId() {
         return albumId;
     }
 
-    public void setAlbumId(int albumId) {
+    public void setAlbumId(Integer albumId) {
         this.albumId = albumId;
     }
 
-    public int getOwnerId() {
+    public Integer getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(Integer ownerId) {
         this.ownerId = ownerId;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -121,19 +121,19 @@ public class Photo {
         this.photo1280 = photo1280;
     }
 
-    public int getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
@@ -145,11 +145,11 @@ public class Photo {
         this.text = text;
     }
 
-    public int getDate() {
+    public Integer getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Integer date) {
         this.date = date;
     }
 
@@ -161,4 +161,8 @@ public class Photo {
         this.accessKey = accessKey;
     }
 
+    @Override
+    public String getType() {
+        return VKAttachments.TYPE_PHOTO;
+    }
 }

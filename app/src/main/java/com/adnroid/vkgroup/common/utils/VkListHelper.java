@@ -22,6 +22,9 @@ public class VkListHelper {
                 wallItem.getSharedRepost().setSenderName(repostSender.getFullName());
                 wallItem.getSharedRepost().setSenderPhoto(repostSender.getPhoto());
 
+                wallItem.getSharedRepost().setAttachmentsString(Utils.convertAttachmentsToFontIcons(
+                        wallItem.getSharedRepost().getAttachments()
+                ));
             }
         }
         return wallItems;

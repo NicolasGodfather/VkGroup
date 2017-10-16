@@ -9,6 +9,8 @@ import java.util.List;
 
 public class WallItem {
 
+
+    public String AttachmentsString;
     public String senderName;
     public String senderPhoto;
 
@@ -39,7 +41,7 @@ public class WallItem {
     private int canPin;
     @SerializedName("attachments")
     @Expose
-    private List<Attachment> attachments = null;
+    private List<ApiAttachment> attachments = null;
     @SerializedName("post_source")
     @Expose
     private PostSource postSource;
@@ -123,11 +125,11 @@ public class WallItem {
         this.canPin = canPin;
     }
 
-    public List<Attachment> getAttachments() {
+    public List<ApiAttachment> getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(List<Attachment> attachments) {
+    public void setAttachments(List<ApiAttachment> attachments) {
         this.attachments = attachments;
     }
 
@@ -171,6 +173,21 @@ public class WallItem {
         this.views = views;
     }
 
+    public String getAttachmentsString() {
+        return AttachmentsString;
+    }
+
+    public void setAttachmentsString(String attachmentsString) {
+        AttachmentsString = attachmentsString;
+    }
+
+    public List<WallItem> getCopyHistory() {
+        return copyHistory;
+    }
+
+    public void setCopyHistory(List<WallItem> copyHistory) {
+        this.copyHistory = copyHistory;
+    }
 
     public String getSenderName() {
         return senderName;
