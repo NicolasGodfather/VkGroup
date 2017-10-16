@@ -44,13 +44,11 @@ public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseViewMod
     }
 
     public void addItems(List<BaseViewModel> newItems) {
-
         for (BaseViewModel newItem : newItems) {
             registerTypeInstance(newItem);
         }
 
         list.addAll(newItems);
-
         notifyDataSetChanged();
     }
 
