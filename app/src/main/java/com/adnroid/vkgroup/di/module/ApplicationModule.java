@@ -2,6 +2,7 @@ package com.adnroid.vkgroup.di.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Typeface;
 
 import javax.inject.Singleton;
 
@@ -23,4 +24,11 @@ public class ApplicationModule {
     public Context provideContext() {
         return application;
     }
+
+    @Provides
+    @Singleton
+    Typeface provideGoogleFontTypeface(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "MaterialIconsRegular.ttf");
+    }
+
 }
