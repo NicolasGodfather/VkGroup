@@ -4,7 +4,7 @@ package com.adnroid.vkgroup.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Group {
+public class Group implements Owner {
 
     @SerializedName("id")
     @Expose
@@ -117,4 +117,13 @@ public class Group {
         this.photo200 = photo200;
     }
 
+    @Override
+    public String getFullName() {
+        return name;
+    }
+
+    @Override
+    public String getPhoto() {
+        return photo100;
+    }
 }
