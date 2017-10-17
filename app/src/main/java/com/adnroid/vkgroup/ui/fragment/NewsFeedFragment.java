@@ -3,16 +3,10 @@ package com.adnroid.vkgroup.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.adnroid.vkgroup.App;
 import com.adnroid.vkgroup.R;
-import com.adnroid.vkgroup.common.adapter.BaseAdapter;
 import com.adnroid.vkgroup.common.utils.VkListHelper;
 import com.adnroid.vkgroup.model.WallItem;
 import com.adnroid.vkgroup.model.view.BaseViewModel;
@@ -33,13 +27,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class NewsFeedFragment extends BaseFragment {
+public class NewsFeedFragment extends BaseFeedFragment {
 
     @Inject
-    WallApi wallApi;
-
-    RecyclerView recyclerView;
-    BaseAdapter baseAdapter;
+    WallApi mWallApi;
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -54,65 +45,32 @@ public class NewsFeedFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        wallApi.get(new WallGetRequestModel(-86529522).toMap())
-                .enqueue(new Callback<GetWallResponse>() {
-                    @Override
-                    public void onResponse(Call<GetWallResponse> call, Response<GetWallResponse> response) {
-                        List<WallItem> wallItems = VkListHelper.getWallList(response.body().response);
-                        List<BaseViewModel> list = new ArrayList<>();
 
-                        for (WallItem item : wallItems) {
-                            list.add(new NewsItemHeaderViewModel(item));
-                            list.add(new NewsItemBodyViewModel(item));
-                            list.add(new NewsItemFooterViewModel(item));
-                        }
-                        baseAdapter.addItems(list);
-                        /*List<NewsItemBodyViewModel> list = new ArrayList<>();
-                        for (WallItem item : response.body().response.getItems()) {
-                            list.add(new NewsItemBodyViewModel(item));
-                        }*/
-                        Toast.makeText(getActivity(), "Like: " + response.body().response.getItems().get(0).getLikes(), Toast.LENGTH_SHORT).show();
-                    }
+        mWallApi.get(new WallGetRequestModel(-88983493).toMap()).enqueue(new Callback<GetWallResponse>() {
+            @Override
+            public void onResponse(Call<GetWallResponse> call, Response<GetWallResponse> response) {
+                List<WallItem> wallItems = VkListHelper.getWallList(response.body().response);
+                List<BaseViewModel> list = new ArrayList<>();
 
-                    @Override
-                    public void onFailure(Call<GetWallResponse> call, Throwable t) {
-                        t.getMessage();
-                    }
-                });
-    }
+                for (WallItem item : wallItems) {
+                    list.add(new NewsItemHeaderViewModel(item));
+                    list.add(new NewsItemBodyViewModel(item));
+                    list.add(new NewsItemFooterViewModel(item));
+                }
+                mAdapter.addItems(list);
+                Toast.makeText(getActivity(), "Likes: " + response.body().response.getItems().get(0).getLikes().getCount(), Toast.LENGTH_LONG).show();
+            }
 
-    @Override
-    protected int getMainContentLayout() {
-        return R.layout.fragment_news_feed;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news_feed, container, false);
+            @Override
+            public void onFailure(Call<GetWallResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override
     public int onCreateToolbarTitle() {
         return R.string.screen_name_news;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setUpRecyclerView(view);
-        setUpAdapter(recyclerView);
-    }
-
-    private void setUpRecyclerView(View rootView) {
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    protected void setUpAdapter(RecyclerView rv) {
-        baseAdapter = new BaseAdapter();
-        rv.setAdapter(baseAdapter);
     }
 
 }
