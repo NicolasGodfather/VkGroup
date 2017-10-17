@@ -46,7 +46,7 @@ public class NewsFeedFragment extends BaseFeedFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mWallApi.get(new WallGetRequestModel(-88983493).toMap()).enqueue(new Callback<GetWallResponse>() {
+        mWallApi.get(new WallGetRequestModel(22741624).toMap()).enqueue(new Callback<GetWallResponse>() {
             @Override
             public void onResponse(Call<GetWallResponse> call, Response<GetWallResponse> response) {
                 List<WallItem> wallItems = VkListHelper.getWallList(response.body().response);
@@ -66,6 +66,33 @@ public class NewsFeedFragment extends BaseFeedFragment {
                 t.printStackTrace();
             }
         });
+
+        /*mWallApi.get(new WallGetRequestModel(22741624).toMap()
+                .flatMap(new Function<GetWallResponse, ObservableSource<WallItem>>() {
+                    @Override
+                    public ObservableSource<WallItem> apply(@NonNull GetWallResponse getWallResponse) throws Exception {
+                        return Observable.fromIterable(VkListHelper.getWallList(getWallResponse.response));
+                    }
+                })
+                .flatMap(new Function<WallItem, ObservableSource<BaseViewModel>>() {
+                    @Override
+                    public ObservableSource<BaseViewModel> apply(@NonNull WallItem wallItem) throws Exception {
+                        List<BaseViewModel> baseItems = new ArrayList<>();
+                        baseItems.add(new NewsItemHeaderViewModel(wallItem));
+                        baseItems.add(new NewsItemBodyViewModel(wallItem));
+                        baseItems.add(new NewsItemFooterViewModel(wallItem));
+                        return Observable.fromIterable(baseItems);
+                    }
+                })
+                .toList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<BaseViewModel>>() {
+                    @Override
+                    public void accept(List<BaseViewModel> objects) throws Exception {
+                        mAdapter.addItems(objects);
+                    }
+                });*/
     }
 
     @Override
