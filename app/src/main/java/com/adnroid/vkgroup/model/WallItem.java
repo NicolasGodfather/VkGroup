@@ -9,11 +9,9 @@ import java.util.List;
 
 public class WallItem {
 
-
     public String AttachmentsString;
     public String senderName;
     public String senderPhoto;
-
 
     @SerializedName("id")
     @Expose

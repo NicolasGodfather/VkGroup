@@ -17,6 +17,7 @@ import com.adnroid.vkgroup.common.utils.VkListHelper;
 import com.adnroid.vkgroup.model.WallItem;
 import com.adnroid.vkgroup.model.view.BaseViewModel;
 import com.adnroid.vkgroup.model.view.NewsItemBodyViewModel;
+import com.adnroid.vkgroup.model.view.NewsItemFooterViewModel;
 import com.adnroid.vkgroup.model.view.NewsItemHeaderViewModel;
 import com.adnroid.vkgroup.rest.api.WallApi;
 import com.adnroid.vkgroup.rest.model.request.WallGetRequestModel;
@@ -63,6 +64,7 @@ public class NewsFeedFragment extends BaseFragment {
                         for (WallItem item : wallItems) {
                             list.add(new NewsItemHeaderViewModel(item));
                             list.add(new NewsItemBodyViewModel(item));
+                            list.add(new NewsItemFooterViewModel(item));
                         }
                         baseAdapter.addItems(list);
                         /*List<NewsItemBodyViewModel> list = new ArrayList<>();

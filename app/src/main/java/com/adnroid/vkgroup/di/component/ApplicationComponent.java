@@ -7,6 +7,7 @@ import com.adnroid.vkgroup.ui.activity.BaseActivity;
 import com.adnroid.vkgroup.ui.activity.MainActivity;
 import com.adnroid.vkgroup.ui.fragment.NewsFeedFragment;
 import com.adnroid.vkgroup.ui.holder.NewsItemBodyHolder;
+import com.adnroid.vkgroup.ui.holder.NewsItemFooterHolder;
 
 import javax.inject.Singleton;
 
@@ -25,5 +26,6 @@ public interface ApplicationComponent {
 
     //holders
     void inject(NewsItemBodyHolder holder);
+    void inject(NewsItemFooterHolder holder);
 
 }
