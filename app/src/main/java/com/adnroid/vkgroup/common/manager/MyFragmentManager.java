@@ -18,7 +18,7 @@ public class MyFragmentManager {
     // set root fragment, here display main content of screen(title, float button)
     public void setFragment(BaseActivity activity, BaseFragment fragment, @IdRes int containerId) {
         // check for exit this fragment in stack
-        if (activity != null && !activity.isFinishing() && isAlreadyContains(fragment)) {
+        if (activity != null && !activity.isFinishing() && !isAlreadyContains(fragment)) {
             FragmentTransaction transaction = createAddTransaction(activity, fragment, false);
             transaction.replace(containerId, fragment);
             commitAddTransaction(activity, fragment, transaction, false);

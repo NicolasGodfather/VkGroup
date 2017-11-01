@@ -14,17 +14,17 @@ public class RestModule {
     private RestClient restClient;
 
     public RestModule() {
-        this.restClient = restClient;
+        this.restClient = new RestClient();
     }
 
-    @Singleton
     @Provides
+    @Singleton
     public RestClient provideRestClient() {
         return restClient;
     }
 
-    @Singleton
     @Provides
+    @Singleton
     public WallApi provideWallApi() {
         return restClient.createService(WallApi.class);
     }

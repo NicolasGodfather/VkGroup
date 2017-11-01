@@ -119,7 +119,6 @@ public class Profile implements Owner {
         return photo100;
     }
 
-
     public int getId() {
         return id;
     }

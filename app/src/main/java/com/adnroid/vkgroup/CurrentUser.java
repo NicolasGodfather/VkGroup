@@ -24,4 +24,5 @@ public class CurrentUser {
                 && VKAccessToken.currentToken() != null
                 && !VKAccessToken.currentToken().isExpired();
     }
+
 }

@@ -21,10 +21,10 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_base);
 
         App.getApplicationComponent().inject(this);
 
-        setContentView(R.layout.activity_base);
         Toolbar toolBar = (Toolbar) findViewById(R.id.toolBar);
 
         setSupportActionBar(toolBar);

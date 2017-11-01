@@ -19,7 +19,6 @@ import javax.inject.Inject;
 public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel>{
 
     private TextView tvDate;
-
     private TextView tvLikesCount;
     private TextView tvLikesIcon;
     private TextView tvCommentsIcon;
