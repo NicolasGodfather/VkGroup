@@ -4,8 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.vk.sdk.api.model.VKAttachments;
 
-public class Link implements Attachment {
+import io.realm.RealmObject;
 
+public class Link extends RealmObject implements Attachment {
 
     @SerializedName("url")
     @Expose

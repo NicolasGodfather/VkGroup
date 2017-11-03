@@ -3,7 +3,9 @@ package com.adnroid.vkgroup.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Profile implements Owner {
+import io.realm.RealmObject;
+
+public class Profile extends RealmObject implements Owner {
     @SerializedName("id")
     @Expose
     private int id;

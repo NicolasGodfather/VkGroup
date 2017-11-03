@@ -1,5 +1,6 @@
 package com.adnroid.vkgroup.di.component;
 
+import com.adnroid.vkgroup.common.manager.NetworkManager;
 import com.adnroid.vkgroup.di.module.ApplicationModule;
 import com.adnroid.vkgroup.di.module.ManagerModule;
 import com.adnroid.vkgroup.di.module.RestModule;
@@ -31,5 +32,8 @@ public interface ApplicationComponent {
 
     //presenter
     void inject(NewsFeedPresenter presenter);
+
+    //managers
+    void inject(NetworkManager manager);
 
 }

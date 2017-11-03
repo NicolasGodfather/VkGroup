@@ -1,14 +1,19 @@
 package com.adnroid.vkgroup.mvp.presenter;
 
+import com.adnroid.vkgroup.common.manager.NetworkManager;
 import com.adnroid.vkgroup.model.view.BaseViewModel;
 import com.adnroid.vkgroup.mvp.view.BaseFeedView;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
+import io.realm.RealmObject;
 
 public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPresenter<V> {
 
@@ -17,13 +22,24 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
 
     private boolean mIsInLoading;
 
+    @Inject
+    NetworkManager mNetworkManager;
+
     public void loadData(ProgressType progressType, int offset, int count) {
         if (mIsInLoading) {
             return;
         }
         mIsInLoading = true;
 
-        onCreateLoadDataObservable(count, offset)
+        mNetworkManager.getNetworkObservable()
+                .flatMap(aBoolean -> {
+                    if (!aBoolean && offset > 0) {
+                        return Observable.empty();
+                    }
+                    return aBoolean
+                            ? onCreateLoadDataObservable(count, offset)
+                            : onCreateRestoreDataObservable();
+                })
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -57,7 +73,6 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
     public void loadRefresh() {
         loadData(ProgressType.Refreshing, 0, START_PAGE_SIZE);
     }
-
 
     public void onLoadingStart(ProgressType progressType) {
         showProgress(progressType);
@@ -111,4 +126,17 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
             }
         }
     }
+
+    public void saveToDb(RealmObject item) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(item));
+    }
+
+    /**
+     * Load from DB
+     *
+     * @return list Observable
+     */
+    public abstract Observable<BaseViewModel> onCreateRestoreDataObservable(); //
+
 }

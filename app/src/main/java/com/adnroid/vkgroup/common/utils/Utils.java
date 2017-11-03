@@ -2,6 +2,8 @@ package com.adnroid.vkgroup.common.utils;
 
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.adnroid.vkgroup.model.ApiAttachment;
 import com.vk.sdk.api.model.VKAttachments;
@@ -11,6 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import io.realm.internal.Util;
 
 public class Utils {
 
@@ -57,4 +61,12 @@ public class Utils {
         }
         return sdf.format(date);
     }
+
+
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        return ((networkInfo != null && networkInfo.isConnected()) || Util.isEmulator());
+    }
+
 }

@@ -4,15 +4,19 @@ package com.adnroid.vkgroup.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class WallItem {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class WallItem extends RealmObject {
 
     public String AttachmentsString;
     public String senderName;
     public String senderPhoto;
 
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private int id;
@@ -39,7 +43,7 @@ public class WallItem {
     private int canPin;
     @SerializedName("attachments")
     @Expose
-    private List<ApiAttachment> attachments = null;
+    private RealmList<ApiAttachment> attachments = null;
     @SerializedName("post_source")
     @Expose
     private PostSource postSource;
@@ -57,7 +61,7 @@ public class WallItem {
     private Views views;
     @SerializedName("copy_history")
     @Expose
-    private List<WallItem> copyHistory = new ArrayList<>();
+    private RealmList<WallItem> copyHistory = new RealmList<>();
 
     public int getId() {
         return id;
@@ -127,7 +131,7 @@ public class WallItem {
         return attachments;
     }
 
-    public void setAttachments(List<ApiAttachment> attachments) {
+    public void setAttachments(RealmList<ApiAttachment> attachments) {
         this.attachments = attachments;
     }
 
@@ -179,11 +183,11 @@ public class WallItem {
         AttachmentsString = attachmentsString;
     }
 
-    public List<WallItem> getCopyHistory() {
+    public RealmList<WallItem> getCopyHistory() {
         return copyHistory;
     }
 
-    public void setCopyHistory(List<WallItem> copyHistory) {
+    public void setCopyHistory(RealmList<WallItem> copyHistory) {
         this.copyHistory = copyHistory;
     }
 
