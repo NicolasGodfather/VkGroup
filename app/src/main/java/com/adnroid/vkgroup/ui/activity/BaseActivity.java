@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.adnroid.vkgroup.App;
 import com.adnroid.vkgroup.R;
@@ -18,6 +19,13 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     @Inject
     MyFragmentManager fragmentManager;
 
+    protected ProgressBar progressBar;
+    Toolbar toolBar;
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +33,12 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
 
         App.getApplicationComponent().inject(this);
 
-        Toolbar toolBar = (Toolbar) findViewById(R.id.toolBar);
+        toolBar = (Toolbar) findViewById(R.id.toolBar);
+        progressBar = (ProgressBar) findViewById(R.id.progress);
 
         setSupportActionBar(toolBar);
 
-        FrameLayout parent = (FrameLayout) findViewById(R.id.mainWrapper);
+        FrameLayout parent = (FrameLayout) findViewById(R.id.main_wrapper);
         getLayoutInflater().inflate(getMainContentLayout(), parent);
 
     }
@@ -48,11 +57,11 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     }
 
     public void setContent(BaseFragment fragment) {
-        fragmentManager.setFragment(this, fragment, R.id.mainWrapper);
+        fragmentManager.setFragment(this, fragment, R.id.main_wrapper);
     }
 
     public void addContent(BaseFragment fragment) {
-        fragmentManager.addFragment(this, fragment, R.id.mainWrapper);
+        fragmentManager.addFragment(this, fragment, R.id.main_wrapper);
     }
 
     public boolean removeCurrentFragment() {
