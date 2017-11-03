@@ -34,8 +34,6 @@ public class NewsFeedFragment extends BaseFeedFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
     }
 
     @Override

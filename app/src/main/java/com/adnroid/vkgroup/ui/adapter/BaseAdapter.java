@@ -1,4 +1,4 @@
-package com.adnroid.vkgroup.common.adapter;
+package com.adnroid.vkgroup.ui.adapter;
 
 import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.RecyclerView;
@@ -43,7 +43,7 @@ public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseViewMod
         addItems(items);
     }
 
-    public void addItems(List<? extends BaseViewModel> newItems) { // тут можно передать классы-наследники BaseViewModel
+    public void addItems(List<? extends BaseViewModel> newItems) { // here can pass classes heirs to BaseViewModel
         for (BaseViewModel newItem : newItems) {
             registerTypeInstance(newItem);
         }
@@ -68,6 +68,16 @@ public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseViewMod
 
     public BaseViewModel getItem(int position) {
         return list.get(position);
+    }
+
+    public int getRealItemCount() {
+        int count = 0;
+        for (int i = 0; i < getItemCount(); i++) {
+            if (!getItem(i).isItemDecorator()) {
+                count += 1;
+            }
+        }
+        return count;
     }
 
 }

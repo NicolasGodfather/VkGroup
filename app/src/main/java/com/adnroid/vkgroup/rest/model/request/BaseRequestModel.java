@@ -1,7 +1,7 @@
 package com.adnroid.vkgroup.rest.model.request;
 
-import com.adnroid.vkgroup.Const;
-import com.adnroid.vkgroup.CurrentUser;
+import com.adnroid.vkgroup.common.Const;
+import com.adnroid.vkgroup.common.CurrentUser;
 import com.google.gson.annotations.SerializedName;
 import com.vk.sdk.api.VKApiConst;
 

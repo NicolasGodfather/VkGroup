@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.adnroid.vkgroup.App;
-import com.adnroid.vkgroup.Const;
-import com.adnroid.vkgroup.CurrentUser;
+import com.adnroid.vkgroup.common.Const;
+import com.adnroid.vkgroup.common.CurrentUser;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.mvp.presenter.MainPresenter;
 import com.adnroid.vkgroup.mvp.view.MainView;

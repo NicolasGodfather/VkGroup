@@ -1,4 +1,4 @@
-package com.adnroid.vkgroup;
+package com.adnroid.vkgroup.common;
 
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKSdk;

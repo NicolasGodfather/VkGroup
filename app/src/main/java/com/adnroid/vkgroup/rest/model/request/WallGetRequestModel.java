@@ -1,6 +1,6 @@
 package com.adnroid.vkgroup.rest.model.request;
 
-import com.adnroid.vkgroup.Const;
+import com.adnroid.vkgroup.common.Const;
 import com.google.gson.annotations.SerializedName;
 import com.vk.sdk.api.VKApiConst;
 
@@ -12,10 +12,10 @@ public class WallGetRequestModel extends BaseRequestModel {
     int ownerId;
 
     @SerializedName(VKApiConst.COUNT)
-    int count = Const.DEFAULT_COUNT;
+    int count = Const.DEFAULT_COUNT; // number of items
 
     @SerializedName(VKApiConst.OFFSET)
-    int offset = 0;
+    int offset = 0; // смещение
 
     @SerializedName(VKApiConst.EXTENDED)
     int extended = 1;

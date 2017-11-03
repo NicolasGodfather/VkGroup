@@ -72,7 +72,6 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
         getViewState().showError(throwable.getMessage());
     }
 
-
     public void onLoadingSuccess(ProgressType progressType, List<BaseViewModel> items) {
         if (getViewState() != null) {
             if (progressType == ProgressType.Paging) {

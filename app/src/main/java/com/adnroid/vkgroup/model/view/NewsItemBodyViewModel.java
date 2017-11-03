@@ -47,4 +47,9 @@ public class NewsItemBodyViewModel extends BaseViewModel {
         return mAttachmentString;
     }
 
+    @Override
+    public boolean isItemDecorator() {
+        return true;
+    }
+
 }

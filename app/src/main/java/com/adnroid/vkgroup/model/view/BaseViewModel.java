@@ -19,12 +19,14 @@ public abstract class BaseViewModel {
 
     protected abstract BaseViewHolder onCreateViewHolder(View view);
 
+    public boolean isItemDecorator() {
+        return false;
+    }
 
     public enum LayoutTypes {
         NewsFeedItemHeader(R.layout.item_news_header),
         NewsFeedItemBody(R.layout.item_news_body),
         NewsFeedItemFooter(R.layout.item_news_footer);
-
 
         private final int id;
 

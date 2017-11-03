@@ -17,6 +17,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
+import static com.adnroid.vkgroup.common.Const.GROUP_ID_3;
+
 public class NewsFeedPresenter extends BaseFeedPresenter<BaseFeedView> {
 
     @Inject
@@ -28,9 +30,7 @@ public class NewsFeedPresenter extends BaseFeedPresenter<BaseFeedView> {
 
     @Override
     public Observable<BaseViewModel> onCreateLoadDataObservable(int count, int offset) {
-// -22741624 22741624 -147166906
-// -16108331 - It brains
-        return mWallApi.get(new WallGetRequestModel(-147166906).toMap())
+        return mWallApi.get(new WallGetRequestModel(GROUP_ID_3, count, offset).toMap())
                 .flatMap(full -> Observable.fromIterable(VkListHelper.getWallList(full.response)))
                 .flatMap(wallItem -> {
                     List<BaseViewModel> baseItems = new ArrayList<>();
