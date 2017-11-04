@@ -19,7 +19,6 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
 
     public static final int START_PAGE_SIZE = 15;
     public static final int NEXT_PAGE_SIZE = 5;
-
     private boolean mIsInLoading;
 
     @Inject
@@ -59,6 +58,8 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
 
     public abstract Observable<BaseViewModel> onCreateLoadDataObservable(int count, int offset);
 
+    public abstract Observable<BaseViewModel> onCreateRestoreDataObservable();
+
     // by first load
     public void loadStart() {
         loadData(ProgressType.ListProgress, 0, START_PAGE_SIZE);
@@ -88,12 +89,10 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
     }
 
     public void onLoadingSuccess(ProgressType progressType, List<BaseViewModel> items) {
-        if (getViewState() != null) {
-            if (progressType == ProgressType.Paging) {
-                getViewState().addItems(items);
-            } else {
-                getViewState().setItems(items);
-            }
+        if (progressType == ProgressType.Paging) {
+            getViewState().addItems(items);
+        } else {
+            getViewState().setItems(items);
         }
     }
 
@@ -102,20 +101,17 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
     }
 
     public void showProgress(ProgressType progressType) {
-        if (getViewState() != null) {
-            switch (progressType) {
-                case Refreshing:
-                    getViewState().showRefreshing();
-                    break;
-                case ListProgress:
-                    getViewState().showListProgress();
-                    break;
-            }
+        switch (progressType) {
+            case Refreshing:
+                getViewState().showRefreshing();
+                break;
+            case ListProgress:
+                getViewState().showListProgress();
+                break;
         }
     }
 
     public void hideProgress(ProgressType progressType) {
-        if (getViewState() != null) {
             switch (progressType) {
                 case Refreshing:
                     getViewState().hideRefreshing();
@@ -124,19 +120,11 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
                     getViewState().hideListProgress();
                     break;
             }
-        }
     }
 
     public void saveToDb(RealmObject item) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(item));
     }
-
-    /**
-     * Load from DB
-     *
-     * @return list Observable
-     */
-    public abstract Observable<BaseViewModel> onCreateRestoreDataObservable(); //
 
 }
