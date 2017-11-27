@@ -11,6 +11,7 @@ import com.adnroid.vkgroup.common.CurrentUser;
 import com.adnroid.vkgroup.model.Profile;
 import com.adnroid.vkgroup.mvp.presenter.MainPresenter;
 import com.adnroid.vkgroup.mvp.view.MainView;
+import com.adnroid.vkgroup.ui.fragment.BaseFragment;
 import com.adnroid.vkgroup.ui.fragment.NewsFeedFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -83,7 +84,12 @@ public class MainActivity extends BaseActivity implements MainView {
                 .addDrawerItems(item1, item2, item3,
                         new SectionDrawerItem().withName("Группа"),
                         item4, item5, item6, item7)
+                .withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    presenter.drawerItemClick((int) drawerItem.getIdentifier());
+                    return false;
+                })
                 .build();
+
     }
 
     @Override
@@ -136,6 +142,11 @@ public class MainActivity extends BaseActivity implements MainView {
                     return false;
                 }));
         mAccountHeader.setProfiles(profileDrawerItems);
+    }
+
+    @Override
+    public void showFragmentFromDrawer(BaseFragment baseFragment) {
+        setContent(baseFragment);
     }
 
 }

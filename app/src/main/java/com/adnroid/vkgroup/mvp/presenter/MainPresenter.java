@@ -2,11 +2,15 @@ package com.adnroid.vkgroup.mvp.presenter;
 
 import com.adnroid.vkgroup.App;
 import com.adnroid.vkgroup.common.CurrentUser;
+import com.adnroid.vkgroup.common.manager.MyFragmentManager;
 import com.adnroid.vkgroup.common.manager.NetworkManager;
 import com.adnroid.vkgroup.model.Profile;
 import com.adnroid.vkgroup.mvp.view.MainView;
 import com.adnroid.vkgroup.rest.api.UsersApi;
 import com.adnroid.vkgroup.rest.model.request.UsersGetRequestModel;
+import com.adnroid.vkgroup.ui.fragment.BaseFragment;
+import com.adnroid.vkgroup.ui.fragment.MyPostsFragment;
+import com.adnroid.vkgroup.ui.fragment.NewsFeedFragment;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -28,6 +32,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     @Inject
     NetworkManager mNetworkManager;
+
+    @Inject
+    MyFragmentManager myFragmentManager;
 
     public MainPresenter() {
         App.getApplicationComponent().inject(this);
@@ -84,6 +91,23 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 }, error -> {
                     error.printStackTrace();
                 });
+    }
+
+    public void drawerItemClick(int id) {
+        BaseFragment fragment = null;
+
+        switch (id) {
+            case 1:
+                fragment = new NewsFeedFragment();
+                break;
+            case 2:
+                fragment = new MyPostsFragment();
+                break;
+        }
+
+        if (fragment != null && !myFragmentManager.isAlreadyContains(fragment)) {
+            getViewState().showFragmentFromDrawer(fragment);
+        }
     }
 
 }
