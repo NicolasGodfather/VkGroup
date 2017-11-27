@@ -10,15 +10,23 @@ import com.adnroid.vkgroup.model.view.NewsItemBodyViewModel;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class NewsItemBodyHolder extends BaseViewHolder<NewsItemBodyViewModel> {
 
+    @BindView(R.id.tv_text)
     public TextView tvText;
+    @BindView(R.id.tv_attachments)
     public TextView tvAttachments;
+
     @Inject
     protected Typeface mFontGoogle;
 
     public NewsItemBodyHolder(View itemView) {
         super(itemView);
+
+        ButterKnife.bind(this, itemView);
         App.getApplicationComponent().inject(this);
 
         tvText = (TextView) itemView.findViewById(R.id.tv_text);

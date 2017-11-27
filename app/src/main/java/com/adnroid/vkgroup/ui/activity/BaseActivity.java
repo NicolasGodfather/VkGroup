@@ -14,13 +14,18 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public abstract class BaseActivity extends MvpAppCompatActivity {
 
     @Inject
     MyFragmentManager fragmentManager;
 
-    protected ProgressBar progressBar;
+    @BindView(R.id.toolBar)
     Toolbar toolBar;
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
 
     public ProgressBar getProgressBar() {
         return progressBar;
@@ -30,11 +35,9 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        ButterKnife.bind(this);
 
         App.getApplicationComponent().inject(this);
-
-        toolBar = (Toolbar) findViewById(R.id.toolBar);
-        progressBar = (ProgressBar) findViewById(R.id.progress);
 
         setSupportActionBar(toolBar);
 
