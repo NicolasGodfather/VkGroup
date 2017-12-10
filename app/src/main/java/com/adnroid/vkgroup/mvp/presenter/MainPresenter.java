@@ -9,6 +9,7 @@ import com.adnroid.vkgroup.mvp.view.MainView;
 import com.adnroid.vkgroup.rest.api.UsersApi;
 import com.adnroid.vkgroup.rest.model.request.UsersGetRequestModel;
 import com.adnroid.vkgroup.ui.fragment.BaseFragment;
+import com.adnroid.vkgroup.ui.fragment.BoardFragment;
 import com.adnroid.vkgroup.ui.fragment.MembersFragment;
 import com.adnroid.vkgroup.ui.fragment.MyPostsFragment;
 import com.adnroid.vkgroup.ui.fragment.NewsFeedFragment;
@@ -106,6 +107,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 break;
             case 4:
                 fragment = new MembersFragment();
+                break;
+            case 5:
+                fragment = new BoardFragment();
                 break;
         }
 

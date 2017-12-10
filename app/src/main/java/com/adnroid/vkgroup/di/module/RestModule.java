@@ -1,6 +1,7 @@
 package com.adnroid.vkgroup.di.module;
 
 import com.adnroid.vkgroup.rest.RestClient;
+import com.adnroid.vkgroup.rest.api.BoardApi;
 import com.adnroid.vkgroup.rest.api.GroupsApi;
 import com.adnroid.vkgroup.rest.api.UsersApi;
 import com.adnroid.vkgroup.rest.api.WallApi;
@@ -41,6 +42,12 @@ public class RestModule {
     @Singleton
     public GroupsApi provideGroupsApi() {
         return mRestClient.createService(GroupsApi.class);
+    }
+
+    @Provides
+    @Singleton
+    public BoardApi provideBoardApi() {
+        return mRestClient.createService(BoardApi.class);
     }
 
 }

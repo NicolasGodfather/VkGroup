@@ -4,6 +4,7 @@ import com.adnroid.vkgroup.common.manager.NetworkManager;
 import com.adnroid.vkgroup.di.module.ApplicationModule;
 import com.adnroid.vkgroup.di.module.ManagerModule;
 import com.adnroid.vkgroup.di.module.RestModule;
+import com.adnroid.vkgroup.mvp.presenter.BoardPresenter;
 import com.adnroid.vkgroup.mvp.presenter.MainPresenter;
 import com.adnroid.vkgroup.mvp.presenter.MembersPresenter;
 import com.adnroid.vkgroup.mvp.presenter.NewsFeedPresenter;
@@ -36,6 +37,7 @@ public interface ApplicationComponent {
     void inject(NewsFeedPresenter presenter);
     void inject(MainPresenter presenter);
     void inject(MembersPresenter presenter);
+    void inject(BoardPresenter presenter);
 
     //managers
     void inject(NetworkManager manager);
