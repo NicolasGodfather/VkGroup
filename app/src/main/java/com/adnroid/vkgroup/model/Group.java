@@ -1,16 +1,21 @@
 
 package com.adnroid.vkgroup.model;
 
+import com.adnroid.vkgroup.model.attachmaent.Link;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 
 public class Group extends RealmObject implements Owner {
 
+    @PrimaryKey
     @SerializedName("id")
     @Expose
-    private int id;
+    private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -19,16 +24,16 @@ public class Group extends RealmObject implements Owner {
     private String screenName;
     @SerializedName("is_closed")
     @Expose
-    private int isClosed;
+    private Integer isClosed;
     @SerializedName("type")
     @Expose
     private String type;
     @SerializedName("is_admin")
     @Expose
-    private int isAdmin;
+    private Integer isAdmin;
     @SerializedName("is_member")
     @Expose
-    private int isMember;
+    private Integer isMember;
     @SerializedName("photo_50")
     @Expose
     private String photo50;
@@ -39,11 +44,29 @@ public class Group extends RealmObject implements Owner {
     @Expose
     private String photo200;
 
+    @SerializedName("status")
+    @Expose
+    public String status;
+
+    @SerializedName("description")
+    @Expose
+    public String description;
+
+    @SerializedName("site")
+    @Expose
+    public String site;
+
+    @SerializedName("links")
+    RealmList<Link> links;
+
+    @SerializedName("contacts")
+    public RealmList<Contact> contactsList;
+
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,11 +86,11 @@ public class Group extends RealmObject implements Owner {
         this.screenName = screenName;
     }
 
-    public int getIsClosed() {
+    public Integer getIsClosed() {
         return isClosed;
     }
 
-    public void setIsClosed(int isClosed) {
+    public void setIsClosed(Integer isClosed) {
         this.isClosed = isClosed;
     }
 
@@ -79,19 +102,19 @@ public class Group extends RealmObject implements Owner {
         this.type = type;
     }
 
-    public int getIsAdmin() {
+    public Integer getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(int isAdmin) {
+    public void setIsAdmin(Integer isAdmin) {
         this.isAdmin = isAdmin;
     }
 
-    public int getIsMember() {
+    public Integer getIsMember() {
         return isMember;
     }
 
-    public void setIsMember(int isMember) {
+    public void setIsMember(Integer isMember) {
         this.isMember = isMember;
     }
 
@@ -127,5 +150,46 @@ public class Group extends RealmObject implements Owner {
     @Override
     public String getPhoto() {
         return photo100;
+    }
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public RealmList<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(RealmList<Link> links) {
+        this.links = links;
+    }
+
+    public RealmList<Contact> getContactsList() {
+        return contactsList;
+    }
+
+    public void setContactsList(RealmList<Contact> contactsList) {
+        this.contactsList = contactsList;
     }
 }

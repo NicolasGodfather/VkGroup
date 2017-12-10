@@ -6,9 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -23,44 +21,69 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public abstract class BaseFeedFragment extends BaseFragment implements BaseFeedView {
 
-    BaseAdapter mAdapter;
-    protected BaseFeedPresenter presenter;
-    protected ProgressBar mProgressBar;
-
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
+
+    BaseAdapter mAdapter;
+
+    protected BaseFeedPresenter mBaseFeedPresenter;
+
+
     @BindView(R.id.swipe_refresh)
-    SwipeRefreshLayout swipeRefresh;
-    Unbinder unbinder;
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
+
+    protected ProgressBar mProgressBar;
+
+    private boolean isWithEndlessList;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        isWithEndlessList = true;
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
 
-        setUpSwipeToRefreshLayout(view);
         setUpRecyclerView(view);
         setUpAdapter(mRecyclerView);
+        setUpSwipeToRefreshLayout(view);
 
-        presenter = onCreateFeedPresenter();
-        presenter.loadStart();
+        mBaseFeedPresenter = onCreateFeedPresenter();
+
+        mBaseFeedPresenter.loadStart();
     }
 
+
+    @Override
+    protected int getMainContentLayout() {
+        return R.layout.fragment_news_feed;
+    }
+
+
     private void setUpRecyclerView(View rootView) {
+
         MyLinearLayoutManager mLinearLayoutManager = new MyLinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
-                if (mLinearLayoutManager.isOnNextPagePosition()) {
-                    presenter.loadNext(mAdapter.getRealItemCount());
+        if (isWithEndlessList) {
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    if (mLinearLayoutManager.isOnNextPagePosition()) {
+                        mBaseFeedPresenter.loadNext(mAdapter.getRealItemCount());
+                    }
                 }
-            }
-        });
+            });
+        }
 
         ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     }
@@ -70,22 +93,16 @@ public abstract class BaseFeedFragment extends BaseFragment implements BaseFeedV
         rv.setAdapter(mAdapter);
     }
 
-    @Override
-    protected int getMainContentLayout() {
-        return R.layout.fragment_news_feed;
-    }
-
-    @Override
-    public int onCreateToolbarTitle() {
-        return 0;
-    }
-
     private void setUpSwipeToRefreshLayout(View rootView) {
-        swipeRefresh = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
-        swipeRefresh.setOnRefreshListener(() -> onCreateFeedPresenter().loadRefresh()); // to update data
-        swipeRefresh.setColorSchemeResources(R.color.colorAccent);
+        mSwipeRefreshLayout.setOnRefreshListener(() -> onCreateFeedPresenter().loadRefresh());
+
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+
         mProgressBar = getBaseActivity().getProgressBar();
     }
+
+    protected abstract BaseFeedPresenter onCreateFeedPresenter();
+
 
     @Override
     public void showRefreshing() {
@@ -93,7 +110,7 @@ public abstract class BaseFeedFragment extends BaseFragment implements BaseFeedV
 
     @Override
     public void hideRefreshing() {
-        swipeRefresh.setRefreshing(false);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
@@ -124,19 +141,8 @@ public abstract class BaseFeedFragment extends BaseFragment implements BaseFeedV
         mAdapter.addItems(items);
     }
 
-    protected abstract BaseFeedPresenter onCreateFeedPresenter();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    public void setWithEndlessList(boolean withEndlessList) {
+        isWithEndlessList = withEndlessList;
     }
 }

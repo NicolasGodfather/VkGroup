@@ -103,10 +103,12 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
     public void showProgress(ProgressType progressType) {
         switch (progressType) {
             case Refreshing:
-                getViewState().showRefreshing();
+                if (getViewState() != null)
+                    getViewState().showRefreshing();
                 break;
             case ListProgress:
-                getViewState().showListProgress();
+                if (getViewState() != null)
+                    getViewState().showListProgress();
                 break;
         }
     }
