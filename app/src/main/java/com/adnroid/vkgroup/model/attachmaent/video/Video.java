@@ -1,13 +1,16 @@
-package com.adnroid.vkgroup.model.attachmaent;
+package com.adnroid.vkgroup.model.attachmaent.video;
 
+import com.adnroid.vkgroup.model.attachmaent.Attachment;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.vk.sdk.api.model.VKAttachments;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Video extends RealmObject implements Attachment {
 
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private int id;
@@ -50,7 +53,9 @@ public class Video extends RealmObject implements Attachment {
     @SerializedName("can_add")
     @Expose
     private int canAdd;
-
+    @SerializedName("files")
+    @Expose
+    private File files;
 
     public int getId() {
         return id;
@@ -167,6 +172,14 @@ public class Video extends RealmObject implements Attachment {
     @Override
     public String getType() {
         return VKAttachments.TYPE_VIDEO;
+    }
+
+    public File getFiles() {
+        return files;
+    }
+
+    public void setFiles(File files) {
+        this.files = files;
     }
 
 }

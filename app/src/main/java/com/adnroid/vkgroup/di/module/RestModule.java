@@ -4,6 +4,7 @@ import com.adnroid.vkgroup.rest.RestClient;
 import com.adnroid.vkgroup.rest.api.BoardApi;
 import com.adnroid.vkgroup.rest.api.GroupsApi;
 import com.adnroid.vkgroup.rest.api.UsersApi;
+import com.adnroid.vkgroup.rest.api.VideoApi;
 import com.adnroid.vkgroup.rest.api.WallApi;
 
 import javax.inject.Singleton;
@@ -49,5 +50,14 @@ public class RestModule {
     public BoardApi provideBoardApi() {
         return mRestClient.createService(BoardApi.class);
     }
+
+
+    @Provides
+    @Singleton
+    public VideoApi provideVideoApi() {
+        return mRestClient.createService(VideoApi.class);
+    }
+
+
 
 }

@@ -2,12 +2,17 @@ package com.adnroid.vkgroup.common.utils;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 
 import com.adnroid.vkgroup.model.ApiAttachment;
 import com.vk.sdk.api.model.VKAttachments;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,6 +72,70 @@ public class Utils {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return ((networkInfo != null && networkInfo.isConnected()) || Util.isEmulator());
+    }
+
+
+    public static String parseDuration(long initialDuration) {
+        Date date = new Date(initialDuration * 1000); // *1000 is to convert seconds to milliseconds
+        SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
+
+        return sdf.format(date);
+    }
+
+    public static String formatViewsCount(int viewsCount) {
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+
+        symbols.setGroupingSeparator(' ');
+        formatter.setDecimalFormatSymbols(symbols);
+
+        return formatter.format(viewsCount);
+    }
+
+    public static String formatSize(long bytes) {
+        int unit = 1000;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = String.valueOf(("kMGTPE").charAt(exp - 1));
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+
+
+    public static String removeExtFromText(String s) {
+        String str = s;
+        int length = s.length();
+        int removeCharsAfter = 0;
+
+        for (int i = 0; i < length; i++) {
+            String c = Character.toString(s.charAt(i));
+            if (c.equals(".")) {
+                removeCharsAfter = i;
+            }
+        }
+
+        for (int i = removeCharsAfter; i < length; i++) {
+            str = removeCharAt(str, removeCharsAfter);
+        }
+
+        return str;
+
+    }
+
+    public static String removeCharAt(String s, int pos) {
+        StringBuilder sb = new StringBuilder(s);
+        sb.deleteCharAt(pos);
+        return sb.toString();
+    }
+
+    public static void openUrlInActionView(String url, Context context) {
+        if (url != null) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.parse(url);
+            intent.setData(uri);
+            if (intent.resolveActivity(context.getPackageManager()) != null) {
+                context.startActivity(intent);
+            }
+        }
     }
 
 }

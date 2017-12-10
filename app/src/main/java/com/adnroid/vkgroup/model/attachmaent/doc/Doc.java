@@ -1,14 +1,13 @@
-package com.adnroid.vkgroup.model.attachmaent;
+package com.adnroid.vkgroup.model.attachmaent.doc;
 
+import com.adnroid.vkgroup.model.attachmaent.Attachment;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.vk.sdk.api.model.VKAttachments;
 
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 public class Doc extends RealmObject implements Attachment {
-    @PrimaryKey
     @SerializedName("id")
     @Expose
     private int id;
@@ -36,6 +35,9 @@ public class Doc extends RealmObject implements Attachment {
     @SerializedName("access_key")
     @Expose
     private String accessKey;
+    @SerializedName("preview")
+    @Expose
+    private Preview preview;
 
     public int getId() {
         return id;
@@ -112,5 +114,17 @@ public class Doc extends RealmObject implements Attachment {
 
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
+    }
+
+    public int getMtype() {
+        return mtype;
+    }
+
+    public Preview getPreview() {
+        return preview;
+    }
+
+    public void setPreview(Preview preview) {
+        this.preview = preview;
     }
 }

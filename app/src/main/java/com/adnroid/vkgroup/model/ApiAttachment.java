@@ -7,7 +7,7 @@ import com.adnroid.vkgroup.model.attachmaent.Doc;
 import com.adnroid.vkgroup.model.attachmaent.Link;
 import com.adnroid.vkgroup.model.attachmaent.Page;
 import com.adnroid.vkgroup.model.attachmaent.Photo;
-import com.adnroid.vkgroup.model.attachmaent.Video;
+import com.adnroid.vkgroup.model.attachmaent.video.Video;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.vk.sdk.api.model.VKAttachments;
