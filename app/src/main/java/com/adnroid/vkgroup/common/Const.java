@@ -12,5 +12,6 @@ public class Const {
     public static final int GROUP_ID_2 = -147166906;
     public static final int GROUP_ID_VK_FEST = -86529522; // Likes : getCount - null
     public static final String DEFAULT_USER_FIELDS = "photo_100";
+    public static final String DEFAULT_MEMBER_FIELDS = "name,photo_100";
 
 }
