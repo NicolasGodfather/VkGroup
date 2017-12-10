@@ -34,9 +34,7 @@ public class App extends Application {
         super.onCreate();
 
         initComponent();
-
         VKSdk.initialize(this);
-
         initRealm();
 
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
