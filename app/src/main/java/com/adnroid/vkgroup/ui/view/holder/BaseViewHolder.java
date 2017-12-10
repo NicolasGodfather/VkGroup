@@ -1,4 +1,4 @@
-package com.adnroid.vkgroup.ui.holder;
+package com.adnroid.vkgroup.ui.view.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

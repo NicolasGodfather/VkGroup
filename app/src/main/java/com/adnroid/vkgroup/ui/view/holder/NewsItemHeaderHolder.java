@@ -1,4 +1,4 @@
-package com.adnroid.vkgroup.ui.holder;
+package com.adnroid.vkgroup.ui.view.holder;
 
 import android.content.Context;
 import android.view.View;

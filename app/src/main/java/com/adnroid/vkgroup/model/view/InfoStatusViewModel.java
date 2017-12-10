@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.model.Group;
-import com.adnroid.vkgroup.ui.holder.BaseViewHolder;
+import com.adnroid.vkgroup.ui.view.holder.BaseViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

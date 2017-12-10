@@ -1,10 +1,10 @@
-package com.adnroid.vkgroup.ui.holder;
+package com.adnroid.vkgroup.ui.view.holder;
 
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.TextView;
 
-import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.model.view.NewsItemBodyViewModel;
 
@@ -27,7 +27,7 @@ public class NewsItemBodyHolder extends BaseViewHolder<NewsItemBodyViewModel> {
         super(itemView);
 
         ButterKnife.bind(this, itemView);
-        App.getApplicationComponent().inject(this);
+        MyApplication.getApplicationComponent().inject(this);
 
         tvText = (TextView) itemView.findViewById(R.id.tv_text);
         tvAttachments = (TextView) itemView.findViewById(R.id.tv_attachments);

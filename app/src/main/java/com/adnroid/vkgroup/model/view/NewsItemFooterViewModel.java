@@ -6,8 +6,8 @@ import com.adnroid.vkgroup.model.WallItem;
 import com.adnroid.vkgroup.model.counter.CommentCounterViewModel;
 import com.adnroid.vkgroup.model.counter.LikeCounterViewModel;
 import com.adnroid.vkgroup.model.counter.RepostCounterViewModel;
-import com.adnroid.vkgroup.ui.holder.BaseViewHolder;
-import com.adnroid.vkgroup.ui.holder.NewsItemFooterHolder;
+import com.adnroid.vkgroup.ui.view.holder.BaseViewHolder;
+import com.adnroid.vkgroup.ui.view.holder.NewsItemFooterHolder;
 
 public class NewsItemFooterViewModel extends BaseViewModel{
 

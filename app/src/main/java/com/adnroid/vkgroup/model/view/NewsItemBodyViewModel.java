@@ -3,7 +3,7 @@ package com.adnroid.vkgroup.model.view;
 import android.view.View;
 
 import com.adnroid.vkgroup.model.WallItem;
-import com.adnroid.vkgroup.ui.holder.NewsItemBodyHolder;
+import com.adnroid.vkgroup.ui.view.holder.NewsItemBodyHolder;
 
 public class NewsItemBodyViewModel extends BaseViewModel {
 

@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.common.manager.MyFragmentManager;
 import com.adnroid.vkgroup.ui.fragment.BaseFragment;
@@ -37,7 +37,7 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
 
-        App.getApplicationComponent().inject(this);
+        MyApplication.getApplicationComponent().inject(this);
 
         setSupportActionBar(toolBar);
 

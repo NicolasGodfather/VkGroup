@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.adnroid.vkgroup.model.view.BaseViewModel;
-import com.adnroid.vkgroup.ui.holder.BaseViewHolder;
+import com.adnroid.vkgroup.ui.view.holder.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

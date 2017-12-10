@@ -2,7 +2,7 @@ package com.adnroid.vkgroup.common.manager;
 
 import android.content.Context;
 
-import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.MyApplication;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -25,7 +25,7 @@ public class NetworkManager {
     private static final String TAG = "NetworkManager";
 
     public NetworkManager() {
-        App.getApplicationComponent().inject(this);
+        MyApplication.getApplicationComponent().inject(this);
     }
 
 

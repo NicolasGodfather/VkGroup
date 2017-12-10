@@ -1,6 +1,6 @@
 package com.adnroid.vkgroup.mvp.presenter;
 
-import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.common.Const;
 import com.adnroid.vkgroup.model.Member;
 import com.adnroid.vkgroup.model.Topic;
@@ -27,7 +27,7 @@ public class BoardPresenter extends BaseFeedPresenter<BaseFeedView> {
     BoardApi mBoardApi;
 
     public BoardPresenter() {
-        App.getApplicationComponent().inject(this);
+        MyApplication.getApplicationComponent().inject(this);
     }
 
     @Override

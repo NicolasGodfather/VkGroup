@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class App extends Application {
+public class MyApplication extends Application {
 
     private static ApplicationComponent applicationComponent;
     @Inject
@@ -34,9 +34,7 @@ public class App extends Application {
         super.onCreate();
 
         initComponent();
-
         VKSdk.initialize(this);
-
         initRealm();
 
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {

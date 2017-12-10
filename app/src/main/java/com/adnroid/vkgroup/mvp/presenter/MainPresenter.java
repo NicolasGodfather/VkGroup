@@ -1,6 +1,6 @@
 package com.adnroid.vkgroup.mvp.presenter;
 
-import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.common.CurrentUser;
 import com.adnroid.vkgroup.common.manager.MyFragmentManager;
 import com.adnroid.vkgroup.common.manager.NetworkManager;
@@ -40,7 +40,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
     MyFragmentManager myFragmentManager;
 
     public MainPresenter() {
-        App.getApplicationComponent().inject(this);
+        MyApplication.getApplicationComponent().inject(this);
     }
 
     public void checkAuth() {

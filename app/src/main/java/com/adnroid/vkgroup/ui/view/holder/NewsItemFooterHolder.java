@@ -1,4 +1,4 @@
-package com.adnroid.vkgroup.ui.holder;
+package com.adnroid.vkgroup.ui.view.holder;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 import android.view.View;
 import android.widget.TextView;
 
-import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.common.utils.Utils;
 import com.adnroid.vkgroup.model.counter.CommentCounterViewModel;
@@ -46,7 +46,7 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
         super(itemView);
 
         ButterKnife.bind(this, itemView);
-        App.getApplicationComponent().inject(this);
+        MyApplication.getApplicationComponent().inject(this);
 
         mContext = itemView.getContext();
         mResources = mContext.getResources();

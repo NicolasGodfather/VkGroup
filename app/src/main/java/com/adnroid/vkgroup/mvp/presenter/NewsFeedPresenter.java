@@ -1,6 +1,6 @@
 package com.adnroid.vkgroup.mvp.presenter;
 
-import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.common.CurrentUser;
 import com.adnroid.vkgroup.common.utils.VkListHelper;
 import com.adnroid.vkgroup.model.WallItem;
@@ -39,7 +39,7 @@ public class NewsFeedPresenter extends BaseFeedPresenter<BaseFeedView> {
     }
 
     public NewsFeedPresenter() {
-        App.getApplicationComponent().inject(this);
+        MyApplication.getApplicationComponent().inject(this);
     }
 
     @Override

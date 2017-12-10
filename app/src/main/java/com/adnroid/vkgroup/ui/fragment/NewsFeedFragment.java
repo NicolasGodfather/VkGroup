@@ -4,7 +4,7 @@ package com.adnroid.vkgroup.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.adnroid.vkgroup.App;
+import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.mvp.presenter.BaseFeedPresenter;
 import com.adnroid.vkgroup.mvp.presenter.NewsFeedPresenter;
@@ -28,7 +28,7 @@ public class NewsFeedFragment extends BaseFeedFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.getApplicationComponent().inject(this);
+        MyApplication.getApplicationComponent().inject(this);
     }
 
     @Override

@@ -17,4 +17,6 @@
     <string name="screen_name_topics">Topics</string>
     <string name="screen_name_info">Info</string>
     <string name="screen_name_rules">Group Rules</string>
+    <string name="screen_name_image">Group Images</string>
+
 </resources>
