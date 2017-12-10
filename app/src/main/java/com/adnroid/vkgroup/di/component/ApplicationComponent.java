@@ -9,9 +9,11 @@ import com.adnroid.vkgroup.mvp.presenter.InfoPresenter;
 import com.adnroid.vkgroup.mvp.presenter.MainPresenter;
 import com.adnroid.vkgroup.mvp.presenter.MembersPresenter;
 import com.adnroid.vkgroup.mvp.presenter.NewsFeedPresenter;
+import com.adnroid.vkgroup.mvp.presenter.OpenedPostPresenter;
 import com.adnroid.vkgroup.ui.activity.BaseActivity;
 import com.adnroid.vkgroup.ui.activity.MainActivity;
 import com.adnroid.vkgroup.ui.fragment.NewsFeedFragment;
+import com.adnroid.vkgroup.ui.fragment.OpenedPostFragment;
 import com.adnroid.vkgroup.ui.view.holder.ImageAttachmentHolder;
 import com.adnroid.vkgroup.ui.view.holder.NewsItemBodyHolder;
 import com.adnroid.vkgroup.ui.view.holder.NewsItemFooterHolder;
@@ -31,6 +33,7 @@ public interface ApplicationComponent {
 
     //fragments
     void inject(NewsFeedFragment newsFeedFragment);
+    void inject(OpenedPostFragment newsFeedFragment);
 
     //holders
     void inject(NewsItemBodyHolder holder);
@@ -44,6 +47,7 @@ public interface ApplicationComponent {
     void inject(MembersPresenter presenter);
     void inject(BoardPresenter presenter);
     void inject(InfoPresenter presenter);
+    void inject(OpenedPostPresenter presenter);
 
     //managers
     void inject(NetworkManager manager);

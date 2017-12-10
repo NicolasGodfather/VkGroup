@@ -3,10 +3,10 @@ package com.adnroid.vkgroup.model;
 
 import com.adnroid.vkgroup.model.attachmaent.Attachment;
 import com.adnroid.vkgroup.model.attachmaent.Audio;
-import com.adnroid.vkgroup.model.attachmaent.Doc;
 import com.adnroid.vkgroup.model.attachmaent.Link;
 import com.adnroid.vkgroup.model.attachmaent.Page;
 import com.adnroid.vkgroup.model.attachmaent.Photo;
+import com.adnroid.vkgroup.model.attachmaent.doc.Doc;
 import com.adnroid.vkgroup.model.attachmaent.video.Video;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

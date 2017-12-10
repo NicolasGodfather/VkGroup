@@ -1,6 +1,6 @@
 package com.adnroid.vkgroup.model.counter;
 
-import com.adnroid.vkgroup.model.Comments;
+import com.adnroid.vkgroup.model.countable.Comments;
 
 public class CommentCounterViewModel extends CounterViewModel{
 

@@ -1,5 +1,5 @@
 
-package com.adnroid.vkgroup.model;
+package com.adnroid.vkgroup.model.countable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -51,6 +51,10 @@ public class Likes extends RealmObject {
 
     public void setCanPublish(int canPublish) {
         this.canPublish = canPublish;
+    }
+
+    public boolean isUserLikes () {
+        return userLikes == 1;
     }
 
 }

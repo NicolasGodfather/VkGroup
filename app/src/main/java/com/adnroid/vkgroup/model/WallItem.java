@@ -1,6 +1,9 @@
 
 package com.adnroid.vkgroup.model;
 
+import com.adnroid.vkgroup.model.countable.Comments;
+import com.adnroid.vkgroup.model.countable.Likes;
+import com.adnroid.vkgroup.model.countable.Reposts;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -14,11 +14,9 @@ public class Link extends RealmObject implements Attachment {
     @SerializedName("title")
     @Expose
     private String title;
-
     @SerializedName("name")
     @Expose
     private String name;
-
     @SerializedName("caption")
     @Expose
     private String caption;

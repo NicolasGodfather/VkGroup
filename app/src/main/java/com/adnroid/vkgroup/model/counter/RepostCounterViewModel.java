@@ -1,6 +1,6 @@
 package com.adnroid.vkgroup.model.counter;
 
-import com.adnroid.vkgroup.model.Reposts;
+import com.adnroid.vkgroup.model.countable.Reposts;
 
 public class RepostCounterViewModel extends CounterViewModel {
 

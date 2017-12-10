@@ -48,23 +48,15 @@ public class VideoAttachmentHolder extends BaseViewHolder<VideoAttachmentViewMod
     @Override
     public void bindViewHolder(VideoAttachmentViewModel videoAttachmentViewModel) {
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        itemView.setOnClickListener(view -> mVideoApi.get(new VideoGetRequestModel(videoAttachmentViewModel.getOwnerId(), videoAttachmentViewModel.getId()).toMap())
+                .flatMap(videosResponseFull -> Observable.fromIterable(videosResponseFull.response.items))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(newVideo -> {
+                    String url = newVideo.getFiles() == null ? newVideo.getPlayer() : newVideo.getFiles().getExternal();
 
-                mVideoApi.get(new VideoGetRequestModel(videoAttachmentViewModel.getOwnerId(), videoAttachmentViewModel.getId()).toMap())
-
-                        .flatMap(videosResponseFull -> Observable.fromIterable(videosResponseFull.response.items))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(newVideo -> {
-                            String url = newVideo.getFiles() == null ? newVideo.getPlayer() : newVideo.getFiles().getExternal();
-
-                            Utils.openUrlInActionView(url, view.getContext());
-                        });
-
-            }
-        });
+                    Utils.openUrlInActionView(url, view.getContext());
+                }));
 
         title.setText(videoAttachmentViewModel.getTitle());
         views.setText(videoAttachmentViewModel.getViewCount());

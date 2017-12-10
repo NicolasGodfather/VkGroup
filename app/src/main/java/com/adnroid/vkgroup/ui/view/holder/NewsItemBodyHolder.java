@@ -6,7 +6,11 @@ import android.widget.TextView;
 
 import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.R;
+import com.adnroid.vkgroup.common.manager.MyFragmentManager;
+import com.adnroid.vkgroup.common.utils.UiHelper;
 import com.adnroid.vkgroup.model.view.NewsItemBodyViewModel;
+import com.adnroid.vkgroup.ui.activity.BaseActivity;
+import com.adnroid.vkgroup.ui.fragment.OpenedPostFragment;
 
 import javax.inject.Inject;
 
@@ -22,6 +26,8 @@ public class NewsItemBodyHolder extends BaseViewHolder<NewsItemBodyViewModel> {
 
     @Inject
     protected Typeface mFontGoogle;
+    @Inject
+    MyFragmentManager myFragmentManager;
 
     public NewsItemBodyHolder(View itemView) {
         super(itemView);
@@ -41,11 +47,18 @@ public class NewsItemBodyHolder extends BaseViewHolder<NewsItemBodyViewModel> {
     public void bindViewHolder(NewsItemBodyViewModel item) {
         tvText.setText(item.getText());
         tvAttachments.setText(item.getmAttachmentString());
+
+        itemView.setOnClickListener(view -> myFragmentManager.addFragment((BaseActivity) view.getContext(),
+                OpenedPostFragment.newInstance(item.getId()),
+                R.id.main_wrapper));
+        UiHelper.getInstance().setUpTextViewWithVisibility(tvText, item.getText());
+        UiHelper.getInstance().setUpTextViewWithVisibility(tvAttachments, item.getmAttachmentString());
     }
 
     @Override
     public void unbindViewHolder() {
         tvText.setText(null);
         tvAttachments.setText(null);
+        itemView.setOnClickListener(null);
     }
 }

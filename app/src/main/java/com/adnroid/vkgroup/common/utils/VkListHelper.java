@@ -1,12 +1,26 @@
 package com.adnroid.vkgroup.common.utils;
 
+import com.adnroid.vkgroup.model.ApiAttachment;
 import com.adnroid.vkgroup.model.Owner;
 import com.adnroid.vkgroup.model.WallItem;
+import com.adnroid.vkgroup.model.view.BaseViewModel;
+import com.adnroid.vkgroup.model.view.LinkAttachmentViewModel;
+import com.adnroid.vkgroup.model.view.attachment.AudioAttachmentViewModel;
+import com.adnroid.vkgroup.model.view.attachment.DocAttachmentViewModel;
+import com.adnroid.vkgroup.model.view.attachment.DocImageAttachmentViewModel;
+import com.adnroid.vkgroup.model.view.attachment.ImageAttachmentViewModel;
+import com.adnroid.vkgroup.model.view.attachment.LinkExternalViewModel;
+import com.adnroid.vkgroup.model.view.attachment.PageAttachmentViewModel;
+import com.adnroid.vkgroup.model.view.attachment.VideoAttachmentViewModel;
 import com.adnroid.vkgroup.rest.model.response.ItemWithSendersResponse;
+import com.vk.sdk.api.model.VKAttachments;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class VkListHelper {
+
     public static List<WallItem> getWallList(ItemWithSendersResponse<WallItem> response) {
         List<WallItem> wallItems = response.items;
 
@@ -28,5 +42,49 @@ public class VkListHelper {
             }
         }
         return wallItems;
+    }
+
+    public static List<BaseViewModel> getAttachmentVhItems(List<ApiAttachment> attachments) {
+        List<BaseViewModel> attachmentVhItems = new ArrayList<>();
+        for (ApiAttachment attachment : attachments) {
+
+            switch (attachment.getType()) {
+                case VKAttachments.TYPE_PHOTO:
+                    attachmentVhItems.add(new ImageAttachmentViewModel(attachment.getPhoto()));
+                    break;
+
+                case VKAttachments.TYPE_AUDIO:
+                    attachmentVhItems.add(new AudioAttachmentViewModel(attachment.getAudio()));
+                    break;
+
+                case VKAttachments.TYPE_VIDEO:
+                    attachmentVhItems.add(new VideoAttachmentViewModel(attachment.getVideo()));
+                    break;
+
+                case VKAttachments.TYPE_DOC:
+                    if (attachment.getDoc().getPreview() != null) {
+                        attachmentVhItems.add(new DocImageAttachmentViewModel(attachment.getDoc()));
+                    } else {
+                        attachmentVhItems.add(new DocAttachmentViewModel(attachment.getDoc()));
+                    }
+                    break;
+
+                case VKAttachments.TYPE_LINK:
+                    if (attachment.getLink().getIsExternal() == 1) {
+                        attachmentVhItems.add(new LinkExternalViewModel(attachment.getLink()));
+                    } else {
+                        attachmentVhItems.add(new LinkAttachmentViewModel(attachment.getLink()));
+                    }
+                    break;
+
+                case "page":
+                    attachmentVhItems.add(new PageAttachmentViewModel(attachment.getPage()));
+                    break;
+
+                default:
+                    throw new NoSuchElementException("Attachment type " + attachment.getType() + " is not supported.");
+            }
+        }
+        return attachmentVhItems;
     }
 }

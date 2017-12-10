@@ -1,6 +1,6 @@
 package com.adnroid.vkgroup.model.counter;
 
-import com.adnroid.vkgroup.model.Likes;
+import com.adnroid.vkgroup.model.countable.Likes;
 
 public class LikeCounterViewModel extends CounterViewModel{
 

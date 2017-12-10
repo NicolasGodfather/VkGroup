@@ -1,5 +1,5 @@
 
-package com.adnroid.vkgroup.model;
+package com.adnroid.vkgroup.model.countable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
