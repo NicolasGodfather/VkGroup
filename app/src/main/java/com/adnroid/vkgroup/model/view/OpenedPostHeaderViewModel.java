@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.common.utils.UiHelper;
+import com.adnroid.vkgroup.model.CommentItem;
 import com.adnroid.vkgroup.model.WallItem;
 import com.adnroid.vkgroup.ui.view.holder.BaseViewHolder;
 import com.bumptech.glide.Glide;
@@ -32,6 +33,14 @@ public class OpenedPostHeaderViewModel extends BaseViewModel {
         this.mText = wallItem.getText();
     }
 
+    public OpenedPostHeaderViewModel(CommentItem commentItem) {
+        this.mId = commentItem.getId();
+
+        this.mProfileName = commentItem.getSenderName();
+        this.mProfilePhoto = commentItem.getSenderPhoto();
+
+        this.mText = commentItem.getDisplayText();
+    }
 
     @Override
     public LayoutTypes getType() {

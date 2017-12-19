@@ -9,6 +9,8 @@ import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.common.manager.MyFragmentManager;
 import com.adnroid.vkgroup.common.utils.UiHelper;
 import com.adnroid.vkgroup.model.CommentItem;
+import com.adnroid.vkgroup.ui.activity.BaseActivity;
+import com.adnroid.vkgroup.ui.fragment.OpenedCommentFragment;
 import com.adnroid.vkgroup.ui.view.holder.BaseViewHolder;
 
 import javax.inject.Inject;
@@ -81,6 +83,8 @@ public class CommentBodyViewModel extends BaseViewModel {
 
             UiHelper.getInstance().setUpTextViewWithMessage(tvText, commentBodyViewModel.getText(), "");
             UiHelper.getInstance().setUpTextViewWithVisibility(tvAttachments, commentBodyViewModel.getAttachmentsString());
+            itemView.setOnClickListener(view -> mFragmentManager.addFragment((BaseActivity) itemView.getContext(),
+                    OpenedCommentFragment.newInstance(commentBodyViewModel.getId()), R.id.main_wrapper));
         }
 
         @Override

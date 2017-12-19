@@ -10,12 +10,17 @@ import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.R;
 import com.adnroid.vkgroup.common.manager.MyFragmentManager;
 import com.adnroid.vkgroup.common.utils.Utils;
+import com.adnroid.vkgroup.common.utils.VkListHelper;
 import com.adnroid.vkgroup.model.Place;
+import com.adnroid.vkgroup.model.WallItem;
+import com.adnroid.vkgroup.model.countable.Likes;
 import com.adnroid.vkgroup.model.counter.CommentCounterViewModel;
 import com.adnroid.vkgroup.model.counter.LikeCounterViewModel;
 import com.adnroid.vkgroup.model.counter.RepostCounterViewModel;
 import com.adnroid.vkgroup.model.view.NewsItemFooterViewModel;
+import com.adnroid.vkgroup.rest.api.LikeEventOnSubscribe;
 import com.adnroid.vkgroup.rest.api.WallApi;
+import com.adnroid.vkgroup.rest.model.request.WallGetByIdRequestModel;
 import com.adnroid.vkgroup.ui.activity.BaseActivity;
 import com.adnroid.vkgroup.ui.fragment.CommentsFragment;
 
@@ -23,6 +28,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
+import io.realm.RealmObject;
 
 public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel> {
 
@@ -43,6 +53,9 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
 
     @BindView(R.id.rl_comments)
     public View rlComments;
+    @BindView(R.id.rl_likes)
+    public View rlLikes;
+    public static final String POST = "post";
 
     @Inject
     WallApi api;
@@ -82,6 +95,8 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
         rlComments.setOnClickListener(view -> mFragmentManager.addFragment((BaseActivity) view.getContext(),
                 CommentsFragment.newInstance(new Place(String.valueOf(item.getOwnerId()), String.valueOf(item.getId()))),
                 R.id.main_wrapper));
+
+        rlLikes.setOnClickListener(view -> like(item));
     }
 
     private void bindLikes(LikeCounterViewModel likes) {
@@ -111,4 +126,43 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
         tvCommentsCount.setText(null);
         tvRepostsCount.setText(null);
     }
+
+    public void saveToDb(RealmObject item) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> realm1.copyToRealmOrUpdate(item));
+    }
+
+    public Observable<LikeCounterViewModel> likeObservable(int ownerId, int postId, Likes likes) {
+        return Observable.create(new LikeEventOnSubscribe(POST, ownerId, postId, likes))
+                .observeOn(Schedulers.io())
+                .flatMap(count -> {
+                    return api.getById(new WallGetByIdRequestModel(ownerId, postId).toMap());
+                })
+                .flatMap(full -> Observable.fromIterable(VkListHelper.getWallList(full.response)))
+                .doOnNext(this::saveToDb)
+                .map(wallItem -> new LikeCounterViewModel(wallItem.getLikes()));
+    }
+
+    public void like(NewsItemFooterViewModel item) {
+        WallItem wallItem = getWallItemFromRealm(item.getId());
+        likeObservable(wallItem.getOwnerId(), wallItem.getId(), wallItem.getLikes())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(likes -> {
+                    item.setLikes(likes);
+                    bindLikes(likes);
+                }, error -> {
+                    error.printStackTrace();
+                });
+    }
+
+    public WallItem getWallItemFromRealm(int postId) {
+        Realm realm = Realm.getDefaultInstance();
+        WallItem wallItem = realm.where(WallItem.class)
+                .equalTo("id", postId)
+                .findFirst();
+
+        return realm.copyFromRealm(wallItem);
+    }
+
 }

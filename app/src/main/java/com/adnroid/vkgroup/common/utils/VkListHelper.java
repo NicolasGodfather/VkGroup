@@ -89,7 +89,7 @@ public class VkListHelper {
         return attachmentVhItems;
     }
 
-    public static List<CommentItem> getCommentsList(ItemWithSendersResponse<CommentItem> response, boolean isFromTopic) {
+    public static List<CommentItem> getCommentsList(ItemWithSendersResponse<CommentItem> response) {
         List<CommentItem> commentItems = response.items;
 
         for (CommentItem commentItem : commentItems) {
@@ -97,7 +97,7 @@ public class VkListHelper {
             commentItem.setSenderName(sender.getFullName());
             commentItem.setSenderPhoto(sender.getPhoto());
 
-            commentItem.setIsFromTopic(isFromTopic);
+//            commentItem.setIsFromTopic(isFromTopic);
 
             commentItem.setAttachmentsString(Utils
                     .convertAttachmentsToFontIcons(commentItem.getAttachments()));

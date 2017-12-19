@@ -89,10 +89,12 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
     }
 
     public void onLoadingSuccess(ProgressType progressType, List<BaseViewModel> items) {
-        if (progressType == ProgressType.Paging) {
-            getViewState().addItems(items);
-        } else {
-            getViewState().setItems(items);
+        if (getViewState() != null) {
+            if (progressType == ProgressType.Paging) {
+                getViewState().addItems(items);
+            } else {
+                getViewState().setItems(items);
+            }
         }
     }
 
@@ -114,14 +116,14 @@ public abstract class BaseFeedPresenter<V extends BaseFeedView> extends MvpPrese
     }
 
     public void hideProgress(ProgressType progressType) {
-            switch (progressType) {
-                case Refreshing:
-                    getViewState().hideRefreshing();
-                    break;
-                case ListProgress:
-                    getViewState().hideListProgress();
-                    break;
-            }
+        switch (progressType) {
+            case Refreshing:
+                getViewState().hideRefreshing();
+                break;
+            case ListProgress:
+                getViewState().hideListProgress();
+                break;
+        }
     }
 
     public void saveToDb(RealmObject item) {

@@ -40,7 +40,7 @@ public class CommentsPresenter extends BaseFeedPresenter<BaseFeedView> {
     public Observable<BaseViewModel> onCreateLoadDataObservable(int count, int offset) {
         return mWallApi.getComments(new WallGetCommentsRequestModel(
                 Integer.parseInt(mPlace.getOwnerId()), Integer.parseInt(mPlace.getPostId()), offset).toMap())
-                .flatMap(full -> Observable.fromIterable(VkListHelper.getCommentsList(full.response, true)))
+                .flatMap(full -> Observable.fromIterable(VkListHelper.getCommentsList(full.response)))
                 .doOnNext(commentItem -> commentItem.setPlace(mPlace))
                 .doOnNext(this::saveToDb)
                 .flatMap(commentItem -> Observable.fromIterable(parsePojoModel(commentItem)));
