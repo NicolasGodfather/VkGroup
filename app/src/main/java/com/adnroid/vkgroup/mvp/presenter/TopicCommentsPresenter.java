@@ -9,8 +9,8 @@ import com.adnroid.vkgroup.model.view.CommentBodyViewModel;
 import com.adnroid.vkgroup.model.view.CommentFooterViewModel;
 import com.adnroid.vkgroup.model.view.CommentHeaderViewModel;
 import com.adnroid.vkgroup.mvp.view.BaseFeedView;
-import com.adnroid.vkgroup.rest.api.WallApi;
-import com.adnroid.vkgroup.rest.model.WallGetCommentsRequestModel;
+import com.adnroid.vkgroup.rest.api.BoardApi;
+import com.adnroid.vkgroup.rest.model.request.BoardGetCommentsRequestModel;
 import com.arellomobile.mvp.InjectViewState;
 
 import java.util.ArrayList;
@@ -25,20 +25,20 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 
 @InjectViewState
-public class CommentsPresenter extends BaseFeedPresenter<BaseFeedView> {
+public class TopicCommentsPresenter extends BaseFeedPresenter<BaseFeedView> {
 
     private Place mPlace;
 
     @Inject
-    WallApi mWallApi;
+    BoardApi mBoardApi;
 
-    public CommentsPresenter() {
+    public TopicCommentsPresenter() {
         MyApplication.getApplicationComponent().inject(this);
     }
 
     @Override
     public Observable<BaseViewModel> onCreateLoadDataObservable(int count, int offset) {
-        return mWallApi.getComments(new WallGetCommentsRequestModel(
+        return mBoardApi.getComments(new BoardGetCommentsRequestModel(
                 Integer.parseInt(mPlace.getOwnerId()), Integer.parseInt(mPlace.getPostId()), offset).toMap())
                 .flatMap(full -> Observable.fromIterable(VkListHelper.getCommentsList(full.response, true)))
                 .doOnNext(commentItem -> commentItem.setPlace(mPlace))
@@ -50,7 +50,7 @@ public class CommentsPresenter extends BaseFeedPresenter<BaseFeedView> {
     public Observable<BaseViewModel> onCreateRestoreDataObservable() {
         return Observable.fromCallable(getListFromRealmCallable())
                 .flatMap(Observable::fromIterable)
-                .filter(commentItem -> commentItem.getPlace().equals(this.mPlace) && !commentItem.isFromTopic)
+                .filter(commentItem -> commentItem.getPlace().equals(this.mPlace) && commentItem.isFromTopic)
                 .flatMap(commentItem -> Observable.fromIterable(parsePojoModel(commentItem)));
     }
 

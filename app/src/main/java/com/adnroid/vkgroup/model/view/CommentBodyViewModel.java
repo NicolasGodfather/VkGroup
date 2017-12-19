@@ -80,7 +80,6 @@ public class CommentBodyViewModel extends BaseViewModel {
 
         @Override
         public void bindViewHolder(CommentBodyViewModel commentBodyViewModel) {
-
             UiHelper.getInstance().setUpTextViewWithMessage(tvText, commentBodyViewModel.getText(), "");
             UiHelper.getInstance().setUpTextViewWithVisibility(tvAttachments, commentBodyViewModel.getAttachmentsString());
             itemView.setOnClickListener(view -> mFragmentManager.addFragment((BaseActivity) itemView.getContext(),
