@@ -8,18 +8,23 @@ import android.widget.TextView;
 
 import com.adnroid.vkgroup.MyApplication;
 import com.adnroid.vkgroup.R;
+import com.adnroid.vkgroup.common.manager.MyFragmentManager;
 import com.adnroid.vkgroup.common.utils.Utils;
+import com.adnroid.vkgroup.model.Place;
 import com.adnroid.vkgroup.model.counter.CommentCounterViewModel;
 import com.adnroid.vkgroup.model.counter.LikeCounterViewModel;
 import com.adnroid.vkgroup.model.counter.RepostCounterViewModel;
 import com.adnroid.vkgroup.model.view.NewsItemFooterViewModel;
+import com.adnroid.vkgroup.rest.api.WallApi;
+import com.adnroid.vkgroup.ui.activity.BaseActivity;
+import com.adnroid.vkgroup.ui.fragment.CommentsFragment;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel>{
+public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel> {
 
     @BindView(R.id.tv_date)
     public TextView tvDate;
@@ -36,8 +41,17 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
     @BindView(R.id.tv_reposts_count)
     public TextView tvRepostsCount;
 
+    @BindView(R.id.rl_comments)
+    public View rlComments;
+
+    @Inject
+    WallApi api;
+
     @Inject
     Typeface mGoogleFontTypeface;
+
+    @Inject
+    MyFragmentManager mFragmentManager;
 
     private Resources mResources;
     private Context mContext;
@@ -65,6 +79,9 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
         bindComments(item.getComments());
         bindReposts(item.getReposts());
 
+        rlComments.setOnClickListener(view -> mFragmentManager.addFragment((BaseActivity) view.getContext(),
+                CommentsFragment.newInstance(new Place(String.valueOf(item.getOwnerId()), String.valueOf(item.getId()))),
+                R.id.main_wrapper));
     }
 
     private void bindLikes(LikeCounterViewModel likes) {
@@ -73,12 +90,14 @@ public class NewsItemFooterHolder extends BaseViewHolder<NewsItemFooterViewModel
         tvLikesIcon.setTextColor(mResources.getColor(likes.getIconColor()));
 
     }
+
     private void bindComments(CommentCounterViewModel comments) {
         tvCommentsCount.setText(String.valueOf(comments.getCount()));
         tvCommentsCount.setTextColor(mResources.getColor(comments.getTextColor()));
         tvCommentIcon.setTextColor(mResources.getColor(comments.getIconColor()));
 
     }
+
     private void bindReposts(RepostCounterViewModel reposts) {
         tvRepostsCount.setText(String.valueOf(reposts.getCount()));
         tvRepostsCount.setTextColor(mResources.getColor(reposts.getTextColor()));

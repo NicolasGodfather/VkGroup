@@ -1,6 +1,7 @@
 package com.adnroid.vkgroup.common.utils;
 
 import com.adnroid.vkgroup.model.ApiAttachment;
+import com.adnroid.vkgroup.model.CommentItem;
 import com.adnroid.vkgroup.model.Owner;
 import com.adnroid.vkgroup.model.WallItem;
 import com.adnroid.vkgroup.model.view.BaseViewModel;
@@ -86,5 +87,21 @@ public class VkListHelper {
             }
         }
         return attachmentVhItems;
+    }
+
+    public static List<CommentItem> getCommentsList(ItemWithSendersResponse<CommentItem> response, boolean isFromTopic) {
+        List<CommentItem> commentItems = response.items;
+
+        for (CommentItem commentItem : commentItems) {
+            Owner sender = response.getSender(commentItem.getFromId());
+            commentItem.setSenderName(sender.getFullName());
+            commentItem.setSenderPhoto(sender.getPhoto());
+
+            commentItem.setIsFromTopic(isFromTopic);
+
+            commentItem.setAttachmentsString(Utils
+                    .convertAttachmentsToFontIcons(commentItem.getAttachments()));
+        }
+        return commentItems;
     }
 }

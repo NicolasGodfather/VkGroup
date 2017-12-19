@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.view.View;
 import android.widget.TextView;
 
+import com.adnroid.vkgroup.R;
+
 public class UiHelper {
 
     private static UiHelper ourInstance = new UiHelper();
@@ -22,6 +24,27 @@ public class UiHelper {
         } else {
             textView.setVisibility(View.GONE);
         }
+    }
+
+    // добавляет строку «поделился» для репостов
+    public void setUpTextViewWithMessage(TextView textView, String s, String messageIfEmpty) {
+        String s1;
+        int color;
+        Resources res = textView.getResources();
+
+        if (s.length() != 0) {
+            textView.setVisibility(View.VISIBLE);
+            color = android.R.color.primary_text_light;
+
+            s1 = s;
+
+        } else {
+            s1 = "Поделился";
+            color = R.color.colorIcon;
+        }
+
+        textView.setText(s1);
+        textView.setTextColor(res.getColor(color));
     }
 
 }

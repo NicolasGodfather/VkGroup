@@ -19,5 +19,7 @@
     <string name="screen_name_rules">Group Rules</string>
     <string name="screen_name_image">Group Images</string>
     <string name="screen_name_opened_post">Post</string>
+    <string name="screen_name_comments">Comments</string>
+    <string name="screen_name_opened_comment">Comment</string>
 
 </resources>
